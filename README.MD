@@ -1,8 +1,8 @@
 This is an AVL tree based `java.util.NavigableSet` implementation.
 
-> The `AVL tree` is a self-balancing binary search tree named after its two Soviet inventors,
-> `Georgy Adelson-Velsky` (on the right) and `Evgenii Landis` (on the left), who published it in their 1962 paper
-> `"An algorithm for the organization of information"`. It was the first such data structure to be invented.
+> The **AVL tree** is a self-balancing binary search tree named after its two Soviet inventors,
+> *Georgy Adelson-Velsky* (on the right) and *Evgenii Landis* (on the left), who published it in their 1962 paper
+> *"An algorithm for the organization of information"*. It was the first such data structure to be invented.
 > 
 > In an AVL tree, the heights of the two child subtrees of any node differ by at most one; if at any time they differ
 > by more than one, rebalancing is done to restore this property. 
@@ -19,28 +19,28 @@ This is an AVL tree based `java.util.NavigableSet` implementation.
 
 source: https://en.wikipedia.org/wiki/AVL_tree
 
-#### Comparing with the reference `java.util.TreeSet` implementation
+#### Compared with the reference `TreeSet` implementation
 
 ##### Memory
 
-`TreeSet` is a red-black tree based `NavigableSet` implementation that reuses the `TreeMap` implementation code 
-by working with an `EntrySet` of the map filled with dummy singleton object as values. This yields an overhead
-of extra 8 bytes (reference/padding) per each `Entry`.
-`AvlTree` internal `Node` doesn't bring such overhead and is thus 8 bytes lighter.
+`java.util.TreeSet` is a red-black tree based `NavigableSet` implementation that reuses the `TreeMap` implementation code 
+by working with an `EntrySet` filled with dummy object references as values which yields an overhead of 
+extra 8 bytes for each node of the tree.  
+`AvlTree`'s internal `Node` implementation doesn't have such overhead and is thus 8 bytes lighter.
 
 `TreeMap.Entry`
-- with compressed references (coops): `40 bytes`  
-- with no compressed references: `64 bytes`  
+- with compressed pointers: `40 bytes`  
+- no compressed pointers: `64 bytes`  
 ![](img/mem_ref_coops.png)
 
 `AvlSet.Node`  
-- with compressed references (coops): `32 bytes`  
-- with no compressed references: `56 bytes`  
+- with compressed pointers: `32 bytes`  
+- no compressed pointers: `56 bytes`  
 ![](img/mem_avl_coops.png)
 
 ##### Performance
 
-Here's a quick JMH benchmark testing a basic set of operations (`add`/`contains`/`remove`)
+Here's a quick JMH benchmark covering the basic set of operations (`add`/`contains`/`remove`)
 against the very same dataset of `1 million` random integers:  
 
 ![](img/bench_result.png)
@@ -49,11 +49,11 @@ Roughly `AvlSet` is `2 - 7`% faster across the board which is negligible.
 
 Benchmark parameters:
 - CPU: 2,7 GHz Quad-Core Intel Core i7
-- MEM: 16 GB 2133 MHz LPDDR3)  
-- JMH params    
+- MEM: 16 GB 2133 MHz LPDDR3
+- JMH params  
 ![](img/bench_params.png)  
 - Source: [ReferenceBenchmark.java](src/test/java/com/github/sabirove/util/ReferenceBenchmark.java)
 
 ###### TODO
 - "subset view" family of APIs (`descendingSet`, `subSet`, `tailSet`, `headSet`) is not implemented for now
-- no `ConcurrentModificationException` safeguard supported for now.
+- no `ConcurrentModificationException` safeguard implemented for now
