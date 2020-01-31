@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/sabirove/avlset.svg?branch=master)](https://travis-ci.org/sabirove/avlset)
 [![Coverage Status](https://coveralls.io/repos/github/sabirove/avlset/badge.svg)](https://coveralls.io/github/sabirove/avlset)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.sabirove/avlset/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.sabirove/avlset)
+
 
 This is an AVL tree based `java.util.NavigableSet` implementation.
 
