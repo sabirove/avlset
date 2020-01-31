@@ -96,10 +96,10 @@ public class ReferenceBenchmark {
     }
 
     @Benchmark
-    public static void benchContains(FullSet fullSet, InputData data, Blackhole blackhole) {
+    public static void benchContains(FullSet fullSet, InputData data) {
         NavigableSet<Integer> set = fullSet.set;
         for (Integer value : data.values) {
-            blackhole.consume(set.contains(value));
+            set.contains(value);
         }
     }
 
