@@ -4,5 +4,5 @@ jdk:
   - openjdk8
 
 after_success:
-  - ./mvnw clean test jacoco:report coveralls:jacoco
+  - ./mvnw clean test jacoco:report coveralls:report
 
