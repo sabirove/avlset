@@ -21,7 +21,7 @@ This is an AVL tree based `java.util.NavigableSet` implementation.
 > For lookup-intensive applications, AVL trees are faster than red–black trees because they are more strictly balanced.
 > Similar to red–black trees, AVL trees are height-balanced.
 
-![](img/Landis.png) ![](img/avl.gif) ![](img/Adelson-Velsky.png)  
+![](https://beeimg.com/images/x49882218863.png) ![](https://upload.wikimedia.org/wikipedia/commons/f/fd/AVL_Tree_Example.gif) ![](https://beeimg.com/images/l20024524023.png)  
 
 source: https://en.wikipedia.org/wiki/AVL_tree
 
@@ -29,27 +29,26 @@ source: https://en.wikipedia.org/wiki/AVL_tree
 
 ##### Memory
 
-`java.util.TreeSet` is a red-black tree based `NavigableSet` implementation that reuses the `TreeMap` implementation code 
-by working with an `EntrySet` filled with dummy object references as values which yields an overhead of 
-extra 8 bytes for each node of the tree.  
-`AvlTree`'s internal `Node` implementation doesn't have such overhead and is thus 8 bytes lighter.
+`java.util.TreeSet` is a red-black tree based `NavigableSet` implementation that delegates to the underlying `TreeMap`
+by using it's `EntrySet` as the actual set. Map values are filled with dummy object references which yields an overhead
+of extra 8 bytes for each node.
 
 `TreeMap.Entry`
-- with compressed pointers: `40 bytes`  
-- no compressed pointers: `64 bytes`  
-![](img/mem_ref_coops.png)
+- compressed pointers: `40 bytes`  
+- regular pointers: `64 bytes`  
+![](https://beeimg.com/images/c65603350883.png)
 
 `AvlSet.Node`  
 - with compressed pointers: `32 bytes`  
 - no compressed pointers: `56 bytes`  
-![](img/mem_avl_coops.png)
+![](https://beeimg.com/images/n03889651861.png)
 
 ##### Performance
 
-Here's a quick JMH benchmark covering the basic set of operations (`add`/`contains`/`remove`)
-against the very same dataset of `1 million` random integers:  
+Here's a quick benchmark covering the basic set of operations (`add`/`contains`/`remove`) executed against the
+very same dataset of `1 million` random integers:  
 
-![](img/bench_result.png)
+![](https://beeimg.com/images/k86980947283.png)
 
 Roughly `AvlSet` is `2 - 7`% faster across the board which is negligible. 
 
@@ -57,7 +56,7 @@ Benchmark parameters:
 - CPU: 2,7 GHz Quad-Core Intel Core i7
 - MEM: 16 GB 2133 MHz LPDDR3
 - JMH params  
-![](img/bench_params.png)  
+![](https://beeimg.com/images/s90714720152.png)  
 - Source: [ReferenceBenchmark.java](src/test/java/com/github/sabirove/util/ReferenceBenchmark.java)
 
 ###### TODO
